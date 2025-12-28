@@ -48,3 +48,35 @@ fn main() -> std::process::ExitCode {
         .run()
         .into()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_run_command_with_empty_vec() {
+        let result = run_command(&[]);
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_run_command_success() {
+        let cmd = vec!["echo".to_string(), "test".to_string()];
+        let result = run_command(&cmd);
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_run_command_failure() {
+        let cmd = vec!["false".to_string()];
+        let result = run_command(&cmd);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_run_command_nonexistent() {
+        let cmd = vec!["nonexistent_command_12345".to_string()];
+        let result = run_command(&cmd);
+        assert!(result.is_err());
+    }
+}
