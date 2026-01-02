@@ -1,4 +1,4 @@
-jjx is jj with (partial) hooks support.
+jjx is jj with e(x)perimental commands and (partial) hooks support.
 
 ```
 $ cargo install --git https://github.com/avamsi/jjx --locked

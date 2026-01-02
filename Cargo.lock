@@ -1973,7 +1973,7 @@ dependencies = [
 name = "jjx"
 version = "0.1.0"
 dependencies = [
- "anyhow",
+ "clap",
  "jj-cli",
  "jj-lib",
 ]
