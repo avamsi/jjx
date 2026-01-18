@@ -58,13 +58,8 @@ fn cmd_x_run(
     )?;
     run_command_in(cmd, Some(&ws))
         .and(run_command_in(
-            &[
-                jj.as_str(),
-                "workspace",
-                "forget",
-                &ws.file_name().unwrap().to_string_lossy(),
-            ],
-            None,
+            &[jj.as_str(), "workspace", "forget"],
+            Some(&ws),
         ))
         .and(std::fs::remove_dir_all(&ws))
         .map_err(|e| e.into())
