@@ -5,5 +5,5 @@ edition = "2024"
 
 [dependencies]
 clap = { version = "4.5.57", features = ["derive"] }
-jj-cli = "0.37.0"
+jj-cli = "0.38.0"
 jj-lib = "0.38.0"
