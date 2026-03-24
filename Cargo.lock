@@ -2028,6 +2028,7 @@ dependencies = [
  "clap",
  "jj-cli",
  "jj-lib",
+ "shlex",
 ]
 
 [[package]]

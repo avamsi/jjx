@@ -31,6 +31,17 @@ fn run_command_in<S: AsRef<std::ffi::OsStr>>(
     })
 }
 
+fn run_shell_command_in(cmd: &[String], dir: &std::path::Path) -> std::io::Result<()> {
+    run_command_in(
+        &[
+            std::env::var("SHELL").as_deref().unwrap_or("sh"),
+            "-ic",
+            &shlex::try_join(cmd.iter().map(|s| s.as_str())).map_err(std::io::Error::other)?,
+        ],
+        Some(dir),
+    )
+}
+
 fn cmd_x_run(
     h: &jj_cli::cli_util::CommandHelper,
     r: &jj_cli::cli_util::RevisionArg,
@@ -56,7 +67,7 @@ fn cmd_x_run(
         ],
         None,
     )?;
-    run_command_in(cmd, Some(&ws))
+    run_shell_command_in(cmd, &ws)
         .and(run_command_in(
             &[jj.as_str(), "workspace", "forget"],
             Some(&ws),
