@@ -7,5 +7,5 @@ updates:
     commit-message:
       prefix: cargo
     groups:
-      all:
+      whole:
         patterns: ['*']
