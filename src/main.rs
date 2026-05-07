@@ -96,11 +96,11 @@ fn run_post_op_hook(
 
 fn main() -> std::process::ExitCode {
     jj_cli::cli_util::CliRunner::init()
-        .add_subcommand(|_ui, helper, Command::X(cmd)| match cmd {
+        .add_subcommand(async |_ui, helper, Command::X(cmd)| match cmd {
             XCommand::Run { revision, command } => cmd_x_run(helper, &revision, &command),
         })
-        .add_dispatch_hook(|ui, helper, command| {
-            command(ui, helper)?;
+        .add_dispatch_hook(async |ui, helper, command| {
+            command.call(ui, helper).await?;
             run_post_op_hook(helper)
         })
         .run()
