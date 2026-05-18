@@ -36,7 +36,11 @@ fn run_shell_command_in(cmd: &[String], dir: &std::path::Path) -> std::io::Resul
         &[
             std::env::var("SHELL").as_deref().unwrap_or("sh"),
             "-ic",
-            &shlex::try_join(cmd.iter().map(|s| s.as_str())).map_err(std::io::Error::other)?,
+            &match cmd {
+                [one] => one.clone(),
+                many => shlex::try_join(many.iter().map(|s| s.as_str()))
+                    .map_err(std::io::Error::other)?,
+            },
         ],
         Some(dir),
     )
